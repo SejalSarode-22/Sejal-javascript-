@@ -1,9 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My javascript project</title>
+    <title>Registration Form</title>
 </head>
 <body>
-    <h1>Hello Sejal...</h1>
+
+    <h2>Registration Form</h2>
+
+    <form id="form">
+
+        <label>Full Name:</label><br>
+        <input type="text" id="name"><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" id="email"><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" id="phone"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" id="password"><br><br>
+
+        <label>About Yourself:</label><br>
+        <textarea id="bio" rows="4" cols="30"></textarea><br><br>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <script>
+        document.getElementById("form").addEventListener("submit", function(e){
+            e.preventDefault();
+            alert("Form Submitted");
+        });
+    </script>
+
 </body>
 </html>
