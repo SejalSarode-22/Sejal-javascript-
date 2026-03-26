@@ -22,14 +22,26 @@
         <input type="password" id="password"><br><br>
 
         <label>About Yourself:</label><br>
-        <textarea id="bio" rows="4" cols="30"></textarea><br><br>
+        <textarea id="bio" rows="4" cols="30" maxlength="200"></textarea><br>
+        <small id="charCount">0 / 200 characters</small><br><br>
 
         <button type="submit">Register</button>
 
     </form>
 
     <script>
-        document.getElementById("form").addEventListener("submit", function(e){
+        const form = document.getElementById("form");
+        const bio = document.getElementById("bio");
+        const charCount = document.getElementById("charCount");
+
+        // Character Counter
+        bio.addEventListener("input", function() {
+            const currentLength = bio.value.length;
+            charCount.textContent = currentLength + " / 200 characters";
+        });
+
+        // Form submit
+        form.addEventListener("submit", function(e){
             e.preventDefault();
             alert("Form Submitted");
         });
