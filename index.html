@@ -10,16 +10,20 @@
     <form id="form">
 
         <label>Full Name:</label><br>
-        <input type="text" id="name"><br><br>
+        <input type="text" id="name">
+        <small id="nameError"></small><br><br>
 
         <label>Email:</label><br>
-        <input type="email" id="email"><br><br>
+        <input type="email" id="email">
+        <small id="emailError"></small><br><br>
 
         <label>Phone:</label><br>
-        <input type="text" id="phone"><br><br>
+        <input type="text" id="phone">
+        <small id="phoneError"></small><br><br>
 
         <label>Password:</label><br>
-        <input type="password" id="password"><br><br>
+        <input type="password" id="password">
+        <small id="passwordError"></small><br><br>
 
         <label>About Yourself:</label><br>
         <textarea id="bio" rows="4" cols="30" maxlength="200"></textarea><br>
@@ -30,20 +34,70 @@
     </form>
 
     <script>
-        const form = document.getElementById("form");
-        const bio = document.getElementById("bio");
-        const charCount = document.getElementById("charCount");
+        let form = document.getElementById("form");
+        let bio = document.getElementById("bio");
+        let charCount = document.getElementById("charCount");
 
         // Character Counter
         bio.addEventListener("input", function() {
-            const currentLength = bio.value.length;
+            let currentLength = bio.value.length;
             charCount.textContent = currentLength + " / 200 characters";
         });
 
-        // Form submit
+        // Form Validation
         form.addEventListener("submit", function(e){
             e.preventDefault();
-            alert("Form Submitted");
+
+            let isValid = true;
+
+            // values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            // error elements
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+            let phoneError = document.getElementById("phoneError");
+            let passwordError = document.getElementById("passwordError");
+
+            // clear errors
+            nameError.textContent = "";
+            emailError.textContent = "";
+            phoneError.textContent = "";
+            passwordError.textContent = "";
+
+            // Name check
+            if (name === "") {
+                nameError.textContent = "Enter your name";
+                isValid = false;
+            }
+
+            // Email check
+            if (!email.includes("@")) {
+                emailError.textContent = "Enter valid email";
+                isValid = false;
+            }
+
+            // Phone check
+            if (phone.length !== 10) {
+                phoneError.textContent = "Enter 10 digit number";
+                isValid = false;
+            }
+
+            // Password check
+            if (password.length < 6) {
+                passwordError.textContent = "Minimum 6 characters";
+                isValid = false;
+            }
+
+            // Final
+            if (isValid) {
+                alert("Registration Successful");
+                form.reset();
+                charCount.textContent = "0 / 200 characters";
+            }
         });
     </script>
 
