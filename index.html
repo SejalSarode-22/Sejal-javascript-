@@ -62,82 +62,78 @@
         let bio = document.getElementById("bio");
         let charCount = document.getElementById("charCount");
 
+        let nameInput = document.getElementById("name");
+        let emailInput = document.getElementById("email");
+        let phoneInput = document.getElementById("phone");
+        let passwordInput = document.getElementById("password");
+
+        let nameError = document.getElementById("nameError");
+        let emailError = document.getElementById("emailError");
+        let phoneError = document.getElementById("phoneError");
+        let passwordError = document.getElementById("passwordError");
+
         // Character Counter
         bio.addEventListener("input", function() {
-            let currentLength = bio.value.length;
-            charCount.textContent = currentLength + " / 200 characters";
+            let len = bio.value.length;
+            charCount.textContent = len + " / 200 characters";
         });
 
-        // Form Validation
+        // 🔥 Real-time validation functions
+
+        nameInput.addEventListener("input", function() {
+            let value = nameInput.value.trim();
+            if (value === "") {
+                nameError.textContent = "Enter your name";
+                nameInput.className = "invalid";
+            } else {
+                nameError.textContent = "";
+                nameInput.className = "valid";
+            }
+        });
+
+        emailInput.addEventListener("input", function() {
+            let value = emailInput.value.trim();
+            if (!value.includes("@")) {
+                emailError.textContent = "Enter valid email";
+                emailInput.className = "invalid";
+            } else {
+                emailError.textContent = "";
+                emailInput.className = "valid";
+            }
+        });
+
+        phoneInput.addEventListener("input", function() {
+            let value = phoneInput.value.trim();
+            if (value.length !== 10) {
+                phoneError.textContent = "Enter 10 digit number";
+                phoneInput.className = "invalid";
+            } else {
+                phoneError.textContent = "";
+                phoneInput.className = "valid";
+            }
+        });
+
+        passwordInput.addEventListener("input", function() {
+            let value = passwordInput.value.trim();
+            if (value.length < 6) {
+                passwordError.textContent = "Minimum 6 characters";
+                passwordInput.className = "invalid";
+            } else {
+                passwordError.textContent = "";
+                passwordInput.className = "valid";
+            }
+        });
+
+        // Final submit check
         form.addEventListener("submit", function(e){
             e.preventDefault();
 
-            let isValid = true;
-
-            let nameInput = document.getElementById("name");
-            let emailInput = document.getElementById("email");
-            let phoneInput = document.getElementById("phone");
-            let passwordInput = document.getElementById("password");
-
-            let name = nameInput.value.trim();
-            let email = emailInput.value.trim();
-            let phone = phoneInput.value.trim();
-            let password = passwordInput.value.trim();
-
-            let nameError = document.getElementById("nameError");
-            let emailError = document.getElementById("emailError");
-            let phoneError = document.getElementById("phoneError");
-            let passwordError = document.getElementById("passwordError");
-
-            // Clear old
-            nameError.textContent = "";
-            emailError.textContent = "";
-            phoneError.textContent = "";
-            passwordError.textContent = "";
-
-            nameInput.className = "";
-            emailInput.className = "";
-            phoneInput.className = "";
-            passwordInput.className = "";
-
-            // Name
-            if (name === "") {
-                nameError.textContent = "Enter your name";
-                nameInput.className = "invalid";
-                isValid = false;
-            } else {
-                nameInput.className = "valid";
-            }
-
-            // Email
-            if (!email.includes("@")) {
-                emailError.textContent = "Enter valid email";
-                emailInput.className = "invalid";
-                isValid = false;
-            } else {
-                emailInput.className = "valid";
-            }
-
-            // Phone
-            if (phone.length !== 10) {
-                phoneError.textContent = "Enter 10 digit number";
-                phoneInput.className = "invalid";
-                isValid = false;
-            } else {
-                phoneInput.className = "valid";
-            }
-
-            // Password
-            if (password.length < 6) {
-                passwordError.textContent = "Minimum 6 characters";
-                passwordInput.className = "invalid";
-                isValid = false;
-            } else {
-                passwordInput.className = "valid";
-            }
-
-            // Final
-            if (isValid) {
+            if (
+                nameInput.className === "valid" &&
+                emailInput.className === "valid" &&
+                phoneInput.className === "valid" &&
+                passwordInput.className === "valid"
+            ) {
                 alert("Registration Successful");
                 form.reset();
                 charCount.textContent = "0 / 200 characters";
@@ -146,8 +142,11 @@
                 emailInput.className = "";
                 phoneInput.className = "";
                 passwordInput.className = "";
+            } else {
+                alert("Please fill all fields correctly");
             }
         });
+
     </script>
 
 </body>
