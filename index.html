@@ -2,6 +2,30 @@
 <html>
 <head>
     <title>Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        input, textarea {
+            padding: 5px;
+            margin-top: 5px;
+        }
+
+        .valid {
+            border: 2px solid green;
+        }
+
+        .invalid {
+            border: 2px solid red;
+        }
+
+        small {
+            color: red;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -50,46 +74,66 @@
 
             let isValid = true;
 
-            // values
-            let name = document.getElementById("name").value.trim();
-            let email = document.getElementById("email").value.trim();
-            let phone = document.getElementById("phone").value.trim();
-            let password = document.getElementById("password").value.trim();
+            let nameInput = document.getElementById("name");
+            let emailInput = document.getElementById("email");
+            let phoneInput = document.getElementById("phone");
+            let passwordInput = document.getElementById("password");
 
-            // error elements
+            let name = nameInput.value.trim();
+            let email = emailInput.value.trim();
+            let phone = phoneInput.value.trim();
+            let password = passwordInput.value.trim();
+
             let nameError = document.getElementById("nameError");
             let emailError = document.getElementById("emailError");
             let phoneError = document.getElementById("phoneError");
             let passwordError = document.getElementById("passwordError");
 
-            // clear errors
+            // Clear old
             nameError.textContent = "";
             emailError.textContent = "";
             phoneError.textContent = "";
             passwordError.textContent = "";
 
-            // Name check
+            nameInput.className = "";
+            emailInput.className = "";
+            phoneInput.className = "";
+            passwordInput.className = "";
+
+            // Name
             if (name === "") {
                 nameError.textContent = "Enter your name";
+                nameInput.className = "invalid";
                 isValid = false;
+            } else {
+                nameInput.className = "valid";
             }
 
-            // Email check
+            // Email
             if (!email.includes("@")) {
                 emailError.textContent = "Enter valid email";
+                emailInput.className = "invalid";
                 isValid = false;
+            } else {
+                emailInput.className = "valid";
             }
 
-            // Phone check
+            // Phone
             if (phone.length !== 10) {
                 phoneError.textContent = "Enter 10 digit number";
+                phoneInput.className = "invalid";
                 isValid = false;
+            } else {
+                phoneInput.className = "valid";
             }
 
-            // Password check
+            // Password
             if (password.length < 6) {
                 passwordError.textContent = "Minimum 6 characters";
+                passwordInput.className = "invalid";
                 isValid = false;
+            } else {
+                passwordInput.className = "valid";
             }
 
             // Final
@@ -97,6 +141,11 @@
                 alert("Registration Successful");
                 form.reset();
                 charCount.textContent = "0 / 200 characters";
+
+                nameInput.className = "";
+                emailInput.className = "";
+                phoneInput.className = "";
+                passwordInput.className = "";
             }
         });
     </script>
