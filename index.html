@@ -1,153 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Registration Form</title>
-
-    <style>
-        body {
-            font-family: Arial;
-        }
-
-        input, textarea {
-            padding: 5px;
-            margin-top: 5px;
-        }
-
-        .valid {
-            border: 2px solid green;
-        }
-
-        .invalid {
-            border: 2px solid red;
-        }
-
-        small {
-            color: red;
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <title>Dashboard - Character Counter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav class="navbar">
+    <h2 class="logo">Live Character Counter</h2>
 
-    <h2>Registration Form</h2>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="form.html" class="btn-nav">Start</a></li>
+    </ul>
+</nav>
+    
+<div class="dashboard">
 
-    <form id="form">
+    <h1>Welcome to Live Character Counter</h1>
+    <p>Count your characters instantly with a smart and simple tool</p>
 
-        <label>Full Name:</label><br>
-        <input type="text" id="name">
-        <small id="nameError"></small><br><br>
+    <div class="card">
+        <h2>Start Counting 🚀</h2>
+        <p>Click below to open the character counter form</p>
 
-        <label>Email:</label><br>
-        <input type="email" id="email">
-        <small id="emailError"></small><br><br>
+        <a href="form.html" class="start-btn">Open Tool</a>
+    </div>
 
-        <label>Phone:</label><br>
-        <input type="text" id="phone">
-        <small id="phoneError"></small><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" id="password">
-        <small id="passwordError"></small><br><br>
-
-        <label>About Yourself:</label><br>
-        <textarea id="bio" rows="4" cols="30" maxlength="200"></textarea><br>
-        <small id="charCount">0 / 200 characters</small><br><br>
-
-        <button type="submit">Register</button>
-
-    </form>
-
-    <script>
-        let form = document.getElementById("form");
-        let bio = document.getElementById("bio");
-        let charCount = document.getElementById("charCount");
-
-        let nameInput = document.getElementById("name");
-        let emailInput = document.getElementById("email");
-        let phoneInput = document.getElementById("phone");
-        let passwordInput = document.getElementById("password");
-
-        let nameError = document.getElementById("nameError");
-        let emailError = document.getElementById("emailError");
-        let phoneError = document.getElementById("phoneError");
-        let passwordError = document.getElementById("passwordError");
-
-        // Character Counter
-        bio.addEventListener("input", function() {
-            let len = bio.value.length;
-            charCount.textContent = len + " / 200 characters";
-        });
-
-        // 🔥 Real-time validation functions
-
-        nameInput.addEventListener("input", function() {
-            let value = nameInput.value.trim();
-            if (value === "") {
-                nameError.textContent = "Enter your name";
-                nameInput.className = "invalid";
-            } else {
-                nameError.textContent = "";
-                nameInput.className = "valid";
-            }
-        });
-
-        emailInput.addEventListener("input", function() {
-            let value = emailInput.value.trim();
-            if (!value.includes("@")) {
-                emailError.textContent = "Enter valid email";
-                emailInput.className = "invalid";
-            } else {
-                emailError.textContent = "";
-                emailInput.className = "valid";
-            }
-        });
-
-        phoneInput.addEventListener("input", function() {
-            let value = phoneInput.value.trim();
-            if (value.length !== 10) {
-                phoneError.textContent = "Enter 10 digit number";
-                phoneInput.className = "invalid";
-            } else {
-                phoneError.textContent = "";
-                phoneInput.className = "valid";
-            }
-        });
-
-        passwordInput.addEventListener("input", function() {
-            let value = passwordInput.value.trim();
-            if (value.length < 6) {
-                passwordError.textContent = "Minimum 6 characters";
-                passwordInput.className = "invalid";
-            } else {
-                passwordError.textContent = "";
-                passwordInput.className = "valid";
-            }
-        });
-
-        // Final submit check
-        form.addEventListener("submit", function(e){
-            e.preventDefault();
-
-            if (
-                nameInput.className === "valid" &&
-                emailInput.className === "valid" &&
-                phoneInput.className === "valid" &&
-                passwordInput.className === "valid"
-            ) {
-                alert("Registration Successful");
-                form.reset();
-                charCount.textContent = "0 / 200 characters";
-
-                nameInput.className = "";
-                emailInput.className = "";
-                phoneInput.className = "";
-                passwordInput.className = "";
-            } else {
-                alert("Please fill all fields correctly");
-            }
-        });
-
-    </script>
+</div>
 
 </body>
 </html>

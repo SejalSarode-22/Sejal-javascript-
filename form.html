@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Character Counter - Registration Form</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bubbles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+</div>
+    <div class="container">
+        <div class="form-box">
+            <h2>Registration Form</h2>
+
+            <form id="registrationForm">
+
+                <!-- Full Name -->
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                    <small class="error" id="nameError"></small>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <small class="error" id="emailError"></small>
+                </div>
+
+                <!-- Phone -->
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" placeholder="Enter 10 digit number">
+                    <small class="error" id="phoneError"></small>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <label>Password</label>
+                    <div style="position:relative;">
+                        <input type="password" id="password" placeholder="Enter password">
+                        <span id="togglePass" 
+                              style="position:absolute; right:10px; top:10px; cursor:pointer;">👁️</span>
+                    </div>
+                    <small class="error" id="passwordError"></small>
+                </div>
+
+                <!-- About Yourself -->
+                <div class="input-group">
+                    <label>About Yourself</label>
+                    <textarea id="bio" rows="4" placeholder="Write something about yourself..."></textarea>
+                    
+                    <!-- Character Counter -->
+                    <div class="counter">
+                        <span id="charCount">0</span> / 200 characters
+                    </div>
+
+                    <small class="error" id="bioError"></small>
+                </div>
+
+                <button type="submit" id="submitBtn">Register</button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript inside HTML -->
+    <script>
+    const form = document.getElementById("registrationForm");
+    const bio = document.getElementById("bio");
+    const charCount = document.getElementById("charCount");
+    const submitBtn = document.getElementById("submitBtn");
+    const togglePass = document.getElementById("togglePass");
+    const passwordField = document.getElementById("password");
+
+    const maxLength = 200;
+
+    // Character Counter
+    bio.addEventListener("input", function () {
+        let currentLength = bio.value.length;
+        charCount.textContent = currentLength;
+
+        if (currentLength >= 160 && currentLength < 190) {
+            charCount.style.color = "orange";
+        } 
+        else if (currentLength >= 190) {
+            charCount.style.color = "red";
+        } 
+        else {
+            charCount.style.color = "#555";
+        }
+
+        submitBtn.disabled = currentLength > maxLength;
+    });
+
+    // 👁️ Show/Hide Password
+    togglePass.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    });
+
+    // Form Validation
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = passwordField.value.trim();
+        const bioText = bio.value.trim();
+
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const phoneError = document.getElementById("phoneError");
+        const passwordError = document.getElementById("passwordError");
+        const bioError = document.getElementById("bioError");
+
+        nameError.textContent = "";
+        emailError.textContent = "";
+        phoneError.textContent = "";
+        passwordError.textContent = "";
+        bioError.textContent = "";
+
+        if (name.length < 3) {
+            nameError.textContent = "Name must be at least 3 characters.";
+            isValid = false;
+        }
+
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            emailError.textContent = "Enter valid email.";
+            isValid = false;
+        }
+
+        const phonePattern = /^[0-9]{10}$/;
+        if (!phone.match(phonePattern)) {
+            phoneError.textContent = "Enter valid 10-digit number.";
+            isValid = false;
+        }
+
+        if (password.length < 6) {
+            passwordError.textContent = "Minimum 6 characters required.";
+            isValid = false;
+        }
+
+        if (bioText.length === 0) {
+            bioError.textContent = "Bio cannot be empty.";
+            isValid = false;
+        }
+
+        if (isValid) {
+            // ✨ small animation effect
+            submitBtn.innerText = "Processing...";
+            
+            setTimeout(() => {
+                alert("Registration Successful!");
+                form.reset();
+                charCount.textContent = "0";
+                charCount.style.color = "#555";
+                submitBtn.innerText = "Register";
+            }, 1000);
+        }
+    });
+    </script>
+
+</body>
+</html>
